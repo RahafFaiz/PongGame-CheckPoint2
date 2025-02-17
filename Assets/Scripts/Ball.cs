@@ -25,21 +25,22 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Paddle"))
+        if (collision.gameObject.CompareTag("GoalWall"))
         {
-            scoreManager?.AddScore(collision.gameObject.name);
-
-            // زيادة السرعة عند الاصطدام بالمضرب
-            float currentSpeed = rb.linearVelocity.magnitude;
-            rb.linearVelocity = rb.linearVelocity.normalized * (currentSpeed * speedIncrease);
-        }
-        else if (collision.gameObject.CompareTag("Wall"))
-        {
-            // ضمان أن الكرة لا تفقد سرعتها عند الاصطدام بالجدران
-            float currentSpeed = rb.linearVelocity.magnitude;
-            rb.linearVelocity = rb.linearVelocity.normalized * currentSpeed;
+            // تحديد اللاعب الذي سُجلت النقطة لصالحه بناءً على اسم الجدار
+            if (collision.gameObject.name == "Player1Goal")
+            {
+                scoreManager?.AddScore("Player2"); // Player2 يحصل على النقطة
+                Debug.Log("Goal Scored by Player2");
+            }
+            else if (collision.gameObject.name == "Player2Goal")
+            {
+                scoreManager?.AddScore("Player1"); // Player1 يحصل على النقطة
+                Debug.Log("Goal Scored by Player1");
+            }
         }
     }
+
 
     void FixedUpdate()
     {

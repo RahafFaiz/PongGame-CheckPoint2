@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Paddle
   - Wall
+  - GoalWall
   layers:
   - Default
   - TransparentFX
